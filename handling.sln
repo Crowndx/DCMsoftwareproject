@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{A0786B88-2ADB-4C21-ABE8-AA2D79766269}") = "handling", "..\..\Handlingproject\handling\handling\handling.phpproj", "{BA786853-068A-4A6A-9784-88E7D24606B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA786853-068A-4A6A-9784-88E7D24606B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA786853-068A-4A6A-9784-88E7D24606B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9A00A00-2E17-46F0-B3A7-586AB49C7592}
+	EndGlobalSection
+EndGlobal
