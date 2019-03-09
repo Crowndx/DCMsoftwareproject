@@ -1,6 +1,6 @@
 <?php
 $serverName = "handlingsoftware.database.windows.net";
-$connectionInfo = array("Database" => "dbName", "UID" => "userName", "PWD" => "password");
+$connectionInfo = array("Database" => "Handling", "UID" => "Handling", "PWD" => "DCMsoftware1");
 $connection = sqlsrv_connect($serverName, $connectionInfo);
 if( $connection ) {
     echo "Connection established.<br />";
