@@ -1,13 +1,5 @@
 <?php
-$serverName = "handlingsoftware.database.windows.net";
-$connectionInfo = array("Database" => "dbName", "UID" => "userName", "PWD" => "password");
-$connection = sqlsrv_connect($serverName, $connectionInfo);
-if( $connection ) {
-    echo "Connection established.<br />";
-}else{
-    echo "Connection could not be established.<br />";
-    die( print_r( sqlsrv_errors(), true));
-}
+
 ?>
 <!DOCTYPE html>
 <html>
