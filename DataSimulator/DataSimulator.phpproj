@@ -1,8 +1,8 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Name>handling</Name>
-    <ProjectGuid>{ba786853-068a-4a6a-9784-88e7d24606b2}</ProjectGuid>
+    <Name>DataSimulator</Name>
+    <ProjectGuid>{580e1a89-3cc4-4a4f-a281-f85221c7635e}</ProjectGuid>
     <RootNamespace>
     </RootNamespace>
     <OutputType>Library</OutputType>
