@@ -16,6 +16,7 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DatabaseConnection.php" />
     <Compile Include="index.php" />
   </ItemGroup>
 </Project>
