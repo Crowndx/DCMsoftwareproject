@@ -17,7 +17,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DatabaseConnection.php" />
-    <Compile Include="Temperature.php" />
+    <Compile Include="Temperatures.php" />
     <Compile Include="Vibrations.php" />
   </ItemGroup>
 </Project>

@@ -11,8 +11,8 @@ while($machineOn === 1 && $motorOn === 1){
     usleep(250000);
     $vibration = rand(28000,32000);
     $date = date("Y/m/d h:i:s");
-    $sqlInsert = "INSERT INTO Vibration(VibrationID,Vibration,DateTime,MotorID) VALUES(?,?,?,?)";
-    $params = array(null,$vibration,$date,$motorID);
+    $sqlInsert = "INSERT INTO Vibration(Vibration,DateTime,MotorID) VALUES(?,?,?)";
+    $params = array($vibration,$date,$motorID);
     $insertStatement = sqlsrv_query($connection,$sqlInsert,$params);
     if( $insertStatement === false ) {
         die( print_r( sqlsrv_errors(), true));
