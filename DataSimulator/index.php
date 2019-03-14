@@ -23,7 +23,7 @@ while($machineOn === 1 && $motorOn === 1){
     if ( sqlsrv_begin_transaction( $connection ) === false ) {
         die( print_r( sqlsrv_errors(), true ));
     }
-    $sqlInsert = "INSERT INTO Vibration(VibrationID,Vibration,DateTime,MotorID) VALUES(`NULL`, `$vibration`, `$date`, `$motorID`)";
+    $sqlInsert = "INSERT INTO Vibration(VibrationID,Vibration,DateTime,MotorID) VALUES(`$counter`, `$vibration`, `$date`, `$motorID`)";
     $insertStatement = sqlsrv_query($connection,$sqlInsert);
     if($insertStatement){
         sqlsrv_commit($connection);
