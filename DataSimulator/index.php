@@ -24,3 +24,4 @@ foreach($vibrationArray as $vibrations){
     $result = $stmtInsert->execute();
 }
 ?>
+<!---->
