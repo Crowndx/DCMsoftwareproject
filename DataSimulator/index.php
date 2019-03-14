@@ -9,19 +9,32 @@ if( $connection ) {
     die( print_r( sqlsrv_errors(), true));
 }
 $runtime = 0;
-for($i=0; $i<60; $i++){
-    $tempArray[i] = rand(15000, 65000);
-    $vibrationArray[i] = rand(28000, 32000);
+$machineOn = 1;
+$motorOn = 1;
+$motorID = 1;
+$counter = 0;
+while($machineOn === 1 && $motorOn === 1){
+    $counter = $counter + 1;
     $runtime = $runtime + 1;
-}
-$id = 0;
-$motor = 1;
-foreach($vibrationArray as $vibrations){
-    $id++;
-    $date = time();
-    $vibrationSQLInsert = "INSERT INTO `Handling`.`Vibration` (`VibrationID`,`Vibration`,`DateTime`,`MotorID`) VALUES(`$id`,`$vibrations`,`$date`,`$motor`)";
-    $stmtInsert = $dbh->prepare($vibrationSQLInsert);
-    $result = $stmtInsert->execute();
+    usleep(250000);
+    $vibration = rand(28000,32000);
+    $date = date("d/m/y h:i:s A");
+    /* Begin the transaction. */
+    if ( sqlsrv_begin_transaction( $conn ) === false ) {
+        die( print_r( sqlsrv_errors(), true ));
+    }
+    $sqlInsert = "INSERT INTO Vibration(VibrationID,Vibration,DateTime,MotorID) VALUES(`NULL`, `$vibration`, `$date`, `$motorID`)";
+    $insertStatement = sqlsrv_query($connection,$sqlInsert);
+    if($insertStatement){
+        sqlsrv_commit($connection);
+        echo "Vibrations added.<br />";
+    }
+    else{
+        sqlsrv_rollback($connection);
+        echo "Vibration not added.<br />";
+    }
+    if($counter > 10){
+        $machineOn = 0;
+    }
 }
 ?>
-<!---->
