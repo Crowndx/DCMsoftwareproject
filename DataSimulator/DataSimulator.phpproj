@@ -16,6 +16,8 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="index.php" />
+    <Compile Include="DatabaseConnection.php" />
+    <Compile Include="Temperature.php" />
+    <Compile Include="Vibrations.php" />
   </ItemGroup>
 </Project>
