@@ -20,7 +20,7 @@ while($machineOn === 1 && $motorOn === 1){
     $vibration = rand(28000,32000);
     $date = date("d/m/y h:i:s A");
     /* Begin the transaction. */
-    if ( sqlsrv_begin_transaction( $conn ) === false ) {
+    if ( sqlsrv_begin_transaction( $connection ) === false ) {
         die( print_r( sqlsrv_errors(), true ));
     }
     $sqlInsert = "INSERT INTO Vibration(VibrationID,Vibration,DateTime,MotorID) VALUES(`NULL`, `$vibration`, `$date`, `$motorID`)";
