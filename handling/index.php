@@ -48,7 +48,7 @@ include 'DatabaseConnection.php';
                     <ul id="machineInfo">
                         <li>Machine 1</li>
                         <li>ON | OFF</li>
-                        <li>[Machine Status]</li>
+                        <li>[Machine Status]1</li>
                         <li>D29:H12:M30:S10</li>
                         <li>D00:H11:M30:S50</li>
                     </ul>
