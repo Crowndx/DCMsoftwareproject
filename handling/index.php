@@ -1,5 +1,8 @@
 <?php
-include 'DatabaseConnection.php';
+//include 'DatabaseConnection.php';
+$customerLocations = array("Grimsby", "Hamilton");
+$machineIds = array("grimsby1", "grimsby2", "hamilton1", "hamilton2");
+$motors = array("11", "12", "21", "22");
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,26 +26,20 @@ include 'DatabaseConnection.php';
 				<div class="col-12 col-md-3 col-xl-2 bd-sidebar" id="sidebar">
                     <div class="dropdown" id="customer"> <!-- Customer drop down menu -->
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Customer</button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Handling</a>
-                            <a class="dropdown-item" href="#">Mohawk</a>
-                            <a class="dropdown-item" href="#">Maple Leaf</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">         
+							<a class="dropdown-item" href="#">Handling</a>
+                            <a class="dropdown-item" href="#">Testing</a>			
                         </div>
                     </div>
                     <div class="dropdown" id="location"> <!-- Location drop down menu -->
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Location</button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Hamilton</a>
-                            <a class="dropdown-item" href="#">Guelph</a>
-                            <a class="dropdown-item" href="#">Hanon</a>
+                        <div id="locations" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         </div>
                     </div>
                     <div class="dropdown" id="machine"> <!-- Machine drop down menu -->
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Machine</button>
+                        <button id="machines" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Machine</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#">Machine 1</a>
-                            <a class="dropdown-item" href="#">Machine 2</a>
-                            <a class="dropdown-item" href="#">Machine 3</a>
                         </div>
                     </div>
                     <ul id="machineInfo">
@@ -109,6 +106,14 @@ include 'DatabaseConnection.php';
 		</div>
 		
 		<script>
+		
+		var customerLocations = <?php echo json_encode($customerLocations); ?>;
+		var locations = document.getElementById("locations")
+		for (var i = 0; i < customerLocations.length; i++) {
+			var node = "<a class='dropdown-item' href='#'>" + customerLocations[i] + "</a>";
+			locations.innerHTML += node;
+		}
+		
 		var ctx = document.getElementById("motor1Temperature").getContext('2d');
 		var myChart = new Chart(ctx, {
 			type: 'line',
