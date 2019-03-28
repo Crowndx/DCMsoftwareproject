@@ -1,8 +1,14 @@
 <?php
 //include 'DatabaseConnection.php';
+
+//spoofed data to simulate what will be queried from the database
 $customerLocations = array("Grimsby", "Hamilton");
 $machineIds = array("grimsby1", "grimsby2", "hamilton1", "hamilton2");
 $motors = array("11", "12", "21", "22");
+$motorData = array(array("motor11"),
+					array("motor12"),
+					array("motor21"),
+					array("motor22"));
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,8 +33,7 @@ $motors = array("11", "12", "21", "22");
                     <div class="dropdown" id="customer"> <!-- Customer drop down menu -->
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Customer</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">         
-							<a class="dropdown-item" href="#">Handling</a>
-                            <a class="dropdown-item" href="#">Testing</a>			
+							<a class="dropdown-item" href="#">Handling Specialty</a>		
                         </div>
                     </div>
                     <div class="dropdown" id="location"> <!-- Location drop down menu -->
@@ -37,9 +42,8 @@ $motors = array("11", "12", "21", "22");
                         </div>
                     </div>
                     <div class="dropdown" id="machine"> <!-- Machine drop down menu -->
-                        <button id="machines" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Machine</button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Machine 1</a>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Machine</button>
+                        <div id="machines" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         </div>
                     </div>
                     <ul id="machineInfo">
@@ -59,22 +63,22 @@ $motors = array("11", "12", "21", "22");
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 border">
                                 <h3 class="topLabel">Machine Location</h3>
-                                <h3 class="bottomLabel">Hamilton, Ontario</h3>
+                                <h3 class="bottomLabel">Hamilton, Ontario, Canada</h3>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 border">
                                 <h3 class="topLabel">Function</h3>
-                                <h3 class="bottomLabel">Does this stuff</h3>
+                                <h3 class="bottomLabel">Engine Work Station Lift System</h3>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 border">
                                 <h3 class="topLabel">Monitoring</h3>
-                                <h3 class="bottomLabel">Temp, Vibr, Runtime</h3>
+                                <h3 class="bottomLabel">Temperature, Vibration, Runtime of Two 20HP Motor/Gearbox combinations line shafted together. Overall machine runtime for maintenance scheduling.</h3>
                             </div>
                         </div>
                     </div>
 					<div class="container" id="motorsContainer">
 						<div class="row" id="motors">
 							<div class="col-sm border">
-								<h6>Motor 1</h6>
+								<h6 class="topLabel">Motor 1</h6>
 								<p id="leftHalf">ON | OFF</p>
 								<p id="rightHalf">[Runtime]</p>
 								<p>Motor Temperature [Motor temp]</p>
@@ -82,19 +86,19 @@ $motors = array("11", "12", "21", "22");
 								<canvas id="motor1Vibration" width="150px" height="200px"></canvas>
 							</div>
 							<div class="col-sm border">
-								<h6>Motor 2</h6>
+								<h6 class="topLabel">Motor 2</h6>
 								<p id="leftHalf">ON | OFF</p>
 								<p id="rightHalf">[Runtime]</p>
 								<p>Motor Temperature [Motor temp]</p>
 							</div>
 							<div class="col-sm border">
-								<h6>Motor 3</h6>
+								<h6 class="topLabel">Motor 3</h6>
 								<p id="leftHalf">ON | OFF</p>
 								<p id="rightHalf">[Runtime]</p>
 								<p>Motor Temperature [Motor temp]</p>
 							</div>
 							<div class="col-sm border">
-								<h6>Motor 4</h6>
+								<h6 class="topLabel">Motor 4</h6>
 								<p id="leftHalf">ON | OFF</p>
 								<p id="rightHalf">[Runtime]</p>
 								<p>Motor Temperature [Motor temp]</p>
@@ -107,11 +111,34 @@ $motors = array("11", "12", "21", "22");
 		
 		<script>
 		
+		//populate the locations dropdown in the nav bar on the left side
 		var customerLocations = <?php echo json_encode($customerLocations); ?>;
-		var locations = document.getElementById("locations")
+		var locationDropdown = document.getElementById("locations");
 		for (var i = 0; i < customerLocations.length; i++) {
 			var node = "<a class='dropdown-item' href='#'>" + customerLocations[i] + "</a>";
-			locations.innerHTML += node;
+			locationDropdown.innerHTML += node;
+		}
+		
+		//set a listener on all objects
+		var locationItems = locationDropdown.getElementsByTagName("*");
+		for (var i = 0; i < locationItems.length; i++) {
+			var curr = locationItems[i];
+
+			curr.addEventListener('click', function() {
+				var locationChildren = document.getElementById("locations").children;
+				for (var i = 0; i < locationChildren.length; i++) {
+					locationChildren[i].classList.remove("selected");
+				}
+				this.classList.add("selected");
+			});
+		}
+		
+		//populate the machine dropdown in the nav bar on the left side
+		var machines = <?php echo json_encode($machineIds); ?>;
+		var machineDropdown = document.getElementById("machines");
+		for (var i = 0; i < machines.length; i++) {
+			var node = "<a class='dropdown-item' href='#'>" + machines[i] + "</a>";
+			machineDropdown.innerHTML += node;
 		}
 		
 		var ctx = document.getElementById("motor1Temperature").getContext('2d');
