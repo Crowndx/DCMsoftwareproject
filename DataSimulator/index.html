@@ -2,75 +2,66 @@
 <head>
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
-
-
-
-form {
-  
-  float:left;
-  padding-right:25%;
-  padding-left:25%;
-
-
+#temp {
+  float: right;
 }
-#temp{
-    padding-left:700px;
-
-
+#Vibrations{
+	float:left;
 }
-
-
-
 </style>
 </head>
 <body>
-<div id ="container">
-<form id= "temp">
+<div id ="container-fluid">
+	<div class="row">
+		<div class="col-sm-6">
+			<form id= "temp">
+				<h2>Temperature</h2>  
+				<div class="form-group" id ="temp1" >
+				<div id= "minTemp" class= "col-sm-12" >
+					<label for="minValue">Min Value: </label>
+					<input  type="text" class="form-control" id="minValue1">
+				</div>
+				</br>
+				<div id= "maxTemp" class= "col-sm-12">
+					<label for="maxValue">Max Value: </label>
+					<input type="text" class="form-control" id="maxValue">
+				</div>
+				</br>
+				<div id= "AmountCycles" class= "col-sm-12">
+					<label for="Amount of Cycle">Amount Of Cycles: </label>
+					<input  type="text" class="form-control" id="AmountCycles1">
+				</div>
+				</br>
  
-  <h2>Temperture</h2>  
-  <div class="form-group" id ="temp1" >
-    <div id= "minTemp" class= "col-sm-6" >
-    <label for="minValue">Min Value: </label>
-    <input  type="text" class="form-control" id="minValue1">
-    </div>
-    </br>
-	<div id= "maxTemp" class= "col-sm-6">
-	<label for="maxValue">Max Value: </label>
-    <input type="text" class="form-control" id="maxValue">
-	</div>
-    </br>
-	<div id= "AmountCycles" class= "col-sm-6">
-    <label for="Amount of Cycle">Amount Of Cycles: </label>
-    <input  type="text" class="form-control" id="AmountCycles1">
-	</div>
-    </br>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+		<div class="col-sm-6">
+			<form id= "Vibrations">
+				<h2>Vibrations</h2>  
+				<div class="form-group" id ="vib1" >
+				<div id= "vminValue" class= "col-sm-12" >
+					<label for="vminValue">Min Value: </label>
+					<input  type="text" class="form-control" id="vminValue1">
+				</div>
+				</br>
+				<div id= "vmaxValue" class= "col-sm-12">
+					<label for="vmaxValue">Max Value: </label>
+					<input type="text" class="form-control" id="vmaxValue1">
+				</div>
+				</br>
+				<div id= "vAmountCycles" class= "col-sm-12">
+					<label for="Amount of Cycle">Amount Of Cycles: </label>
+					<input  type="text" class="form-control" id="vAmountCycles">
+				</div>
+				</br>
  
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<form id= "Vibrations">
- 
-  <h2>Vibrations</h2>  
-  <div class="form-group" id ="vib1" >
-    <div id= "vminValue" class= "col-sm-6" >
-    <label for="vminValue">Min Value: </label>
-    <input  type="text" class="form-control" id="vminValue1">
-    </div>
-    </br>
-	<div id= "vmaxValue" class= "col-sm-6">
-	<label for="vmaxValue">Max Value: </label>
-    <input type="text" class="form-control" id="vmaxValue1">
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
 	</div>
-    </br>
-	<div id= "vAmountCycles" class= "col-sm-6">
-    <label for="Amount of Cycle">Amount Of Cycles: </label>
-    <input  type="text" class="form-control" id="vAmountCycles">
-	</div>
-    </br>
- 
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 </div>
 </body>
 
