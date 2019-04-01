@@ -1,5 +1,5 @@
 <?php
-//include 'DatabaseConnection.php';
+include 'DatabaseConnection.php';
 
 //spoofed data to simulate what will be queried from the database
 $customerLocations = array("Grimsby", "Hamilton");
