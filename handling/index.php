@@ -5,10 +5,10 @@
 $customerLocations = array("Grimsby", "Hamilton");
 $machineIds = array("grimsby1", "grimsby2", "hamilton1", "hamilton2");
 $motors = array("11", "12", "21", "22");
-$motorData = array(array("motor11"),
-					array("motor12"),
-					array("motor21"),
-					array("motor22"));
+$motorData = array(array("motor1"),
+					array("motor2"),
+					array("motor3"),
+					array("motor4"));
 ?>
 <!DOCTYPE html>
 <html>
