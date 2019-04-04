@@ -1,14 +1,19 @@
 <?php
-include 'DatabaseConnection.php';
+//include 'DatabaseConnection.php';
+/*
+$sqlCommand = 'SELECT * FROM Handling';
+$query = $dbh->query($sqlCommand);
+$customerLocations = $query['customer'];
+*/
 
 //spoofed data to simulate what will be queried from the database
 $customerLocations = array("Grimsby", "Hamilton");
-$machineIds = array("grimsby1", "grimsby2", "hamilton1", "hamilton2");
-$motors = array("11", "12", "21", "22");
-$motorData = array(array("motor1"),
-					array("motor2"),
-					array("motor3"),
-					array("motor4"));
+$machineIds = array(array("grimsby", "1"), array("grimsby", "2"), array("hamilton", "1"), array("hamilton", "2"));
+$motorData = array(array("motor11"),
+					array("motor12"),
+					array("motor21"),
+					array("motor22"));
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,19 +64,19 @@ $motorData = array(array("motor1"),
                         <div class="row" id="summaryInfo">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 border">
                                 <h3 class="topLabel">Customer</h3>
-                                <h3 class="bottomLabel">Handling Specialty</h3>
+                                <h6 class="bottomLabel">Handling Specialty</h6>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 border">
                                 <h3 class="topLabel">Machine Location</h3>
-                                <h3 class="bottomLabel">Hamilton, Ontario, Canada</h3>
+                                <h6 class="bottomLabel" id="customerLocation">Hamilton, Ontario, Canada</h6>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 border">
                                 <h3 class="topLabel">Function</h3>
-                                <h3 class="bottomLabel">Engine Work Station Lift System</h3>
+                                <h6 class="bottomLabel">Engine Work Station Lift System</h6>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 border">
                                 <h3 class="topLabel">Monitoring</h3>
-                                <h3 class="bottomLabel">Temperature, Vibration, Runtime of Two 20HP Motor/Gearbox combinations line shafted together. Overall machine runtime for maintenance scheduling.</h3>
+                                <h6 class="bottomLabel">Temperature, Vibration, Runtime of Two 20HP Motor/Gearbox combinations line shafted together. Overall machine runtime for maintenance scheduling.</h6>
                             </div>
                         </div>
                     </div>
@@ -91,18 +96,7 @@ $motorData = array(array("motor1"),
 								<p id="rightHalf">[Runtime]</p>
 								<p>Motor Temperature [Motor temp]</p>
 							</div>
-							<div class="col-sm border">
-								<h6 class="topLabel">Motor 3</h6>
-								<p id="leftHalf">ON | OFF</p>
-								<p id="rightHalf">[Runtime]</p>
-								<p>Motor Temperature [Motor temp]</p>
-							</div>
-							<div class="col-sm border">
-								<h6 class="topLabel">Motor 4</h6>
-								<p id="leftHalf">ON | OFF</p>
-								<p id="rightHalf">[Runtime]</p>
-								<p>Motor Temperature [Motor temp]</p>
-							</div>
+							
 						</div>	
 					</div>
                 </div>
@@ -120,11 +114,14 @@ $motorData = array(array("motor1"),
 		}
 		
 		//set a listener on all objects
-		var locationItems = locationDropdown.getElementsByTagName("*");
+		var locationItems =  document.getElementById("locations").getElementsByTagName("*");
 		for (var i = 0; i < locationItems.length; i++) {
 			var curr = locationItems[i];
 
+			//onclick listener for each location item
 			curr.addEventListener('click', function() {
+				document.getElementById("customerLocation").innerHTML = "" + this.innerHTML + ", Ontario, Canada";
+				addMachineListeners(this.innerHTML.toLowerCase());
 				var locationChildren = document.getElementById("locations").children;
 				for (var i = 0; i < locationChildren.length; i++) {
 					locationChildren[i].classList.remove("selected");
@@ -133,22 +130,48 @@ $motorData = array(array("motor1"),
 			});
 		}
 		
-		//populate the machine dropdown in the nav bar on the left side
-		var machines = <?php echo json_encode($machineIds); ?>;
-		var machineDropdown = document.getElementById("machines");
-		for (var i = 0; i < machines.length; i++) {
-			var node = "<a class='dropdown-item' href='#'>" + machines[i] + "</a>";
-			machineDropdown.innerHTML += node;
+		function addMachineListeners(location) {
+			//populate the machine dropdown in the nav bar on the left side
+			var machines = <?php echo json_encode($machineIds); ?>;
+			var machineDropdown = document.getElementById("machines");
+			machineDropdown.innerHTML = "";
+			for (var i = 0; i < machines.length; i++) {
+				if(machines[i][0] == location) {
+					var node = "<a class='dropdown-item' href='#'>" + machines[i][0] + " " + machines[i][1] + "</a>";
+					machineDropdown.innerHTML += node;
+				}
+			}
+			
+			addMachineItemsListeners();
+		}
+		
+		function addMachineItemsListeners() {
+			//set a listener on all objects
+			var machineItems = document.getElementById("machines").getElementsByTagName("*");
+			for (var i = 0; i < machineItems.length; i++) {
+				var curr = machineItems[i];
+
+				//Onclick listener for each machine item
+				curr.addEventListener('click', function() {
+					var machineChildren = document.getElementById("machines").children;
+					for (var i = 0; i < machineChildren.length; i++) {
+						machineChildren[i].classList.remove("selected");
+					}
+					this.classList.add("selected");
+					
+					
+				});
+			}
 		}
 		
 		var ctx = document.getElementById("motor1Temperature").getContext('2d');
 		var myChart = new Chart(ctx, {
 			type: 'line',
 			data: {
-				labels: ["60", "55", "50", "45", "40", "35", "30", "25", "20", "15", "10", "5", "0"],
+				labels: ["30", "29", "28", "27","26","25","24","23","22","21","20","19","18","17","16","15","14","13","12","11","10","9","8","7","6","5","4","3","2","1"],
 				datasets: [{
 					label: 'Temperature of Motor',
-					data: [30,33,28,26,25,23,27,34,39,46,58,66,70],
+					data: [12,13,4,15,1,15,15,1,14,14,1,16,1,5,15,14,1,4,3,3,34],
 					backgroundColor: [
 						'rgba(255, 99, 132, 0.2)',
 						'rgba(54, 162, 235, 0.2)',
@@ -187,7 +210,7 @@ $motorData = array(array("motor1"),
 						},
 						scaleLabel: {
 							display: true,
-							labelString: 'Time up to an hour ago'
+							labelString: 'Time up to a minute ago'
 						}
 					}]
 				}
@@ -198,10 +221,10 @@ $motorData = array(array("motor1"),
 		var myChart = new Chart(ctx, {
 			type: 'line',
 			data: {
-				labels: ["60", "55", "50", "45", "40", "35", "30", "25", "20", "15", "10", "5", "0"],
+				labels: ["25", "20", "15", "10", "5", "0"],
 				datasets: [{
 					label: 'Vibration of Motor',
-					data: [67,60,54,60,70,85,100,120,110,100,85,80],
+					data: [67,60,54,60,70,85],
 					backgroundColor: [
 						'rgba(255, 99, 132, 0.2)',
 						'rgba(54, 162, 235, 0.2)',
@@ -240,7 +263,7 @@ $motorData = array(array("motor1"),
 						},
 						scaleLabel: {
 							display: true,
-							labelString: 'Time up to an hour ago'
+							labelString: 'Time up to 15 seconds ago'
 						}
 					}]
 				}

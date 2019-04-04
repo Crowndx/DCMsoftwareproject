@@ -11,7 +11,7 @@ body {
 }
 
 .selected {
-	background-color: black;
+	background-color: #175ac6;
 }
 
 .dropdown-menu {
@@ -30,6 +30,7 @@ body {
 
 .border {
 	padding: 0px;
+	background-color: #FFFFFF;
 }
 
 .topLabel {
@@ -38,7 +39,8 @@ body {
 }
 
 .bottomLabel {
-	background-color: #00598e;
+	background-color: #FFFFFF;
+	text-align: center;
 }
 
 #machineInfo {
