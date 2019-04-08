@@ -33,13 +33,13 @@ include 'php/DatabaseConnection.php';
 <div id ="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
-			<form action="https://handlingsoftware.azurewebsites.net/DataSimulator/Simulation.php" method="post" id= "simulator">
+			<form target="_blank" action="https://handlingsoftware.azurewebsites.net/DataSimulator/Simulation.php" method="post" id= "simulator">
 				<div class="row">
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4" id="selections">
                         <h1>Selections</h1>                        
                         <label for="customers">Customers:</label>
-                        <select id="customers">
+                        <select id="customers" name="customers">
                             <?php 
                                 $selectCustomersSQL = "SELECT * FROM Customer";
                                 $customerSelectStatement = sqlsrv_query($connection,$selectCustomersSQL);
@@ -49,36 +49,36 @@ include 'php/DatabaseConnection.php';
                             ?>
                         </select>
                         <label for="address">Address:</label>
-                        <select id="address" disabled="true">
+                        <select id="address" name="address" disabled="true">
 
                         </select>
                         <label for="machine">Machine:</label>
-                        <select id="machine" disabled="true">
+                        <select id="machine" name="machine" disabled="true">
 
                         </select>
                         <label for="motor">Motor:</label>
-                        <select id="motor" disabled="true">
+                        <select id="motor" name="motor" disabled="true">
   
                         </select>
                         <br>
                         <label for="cycles">Cycles: </label>
-					    <input type="number" class="form-control" id="cycles">
+					    <input type="number" class="form-control" id="cycles" name="cycles">
                     </div>
                     <div class="col-sm-4"></div>
                 </div>
                 <div class="col-sm-6" id="Temperature">
                     <h2>Temperature</h2>  				    
                     <label for="minValueTemp">Min Value: </label>
-					<input type="number" class="form-control" id="minValueTemp">
+					<input type="number" class="form-control" id="minValueTemp" name="minValueTemp">
                     <label for="maxValueTemp">Max Value: </label>
-					<input type="number" class="form-control" id="maxValueTemp">
+					<input type="number" class="form-control" id="maxValueTemp" name="maxValueTemp">
                 </div>
                 <div class="col-sm-6" id="Vibrations">
                     <h2>Vibrations</h2>  				    
                     <label for="minValueVib">Min Value: </label>
-					<input type="number" class="form-control" id="minValueVib">
+					<input type="number" class="form-control" id="minValueVib" name="minValueVib">
                     <label for="maxValueVib">Max Value: </label>
-					<input type="number" class="form-control" id="maxValueVib">                   
+					<input type="number" class="form-control" id="maxValueVib" name="maxValueVib">                   
                 </div>
                 <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
                 <button type="reset" class="btn btn-primary" id="resetButton">Reset</button>
