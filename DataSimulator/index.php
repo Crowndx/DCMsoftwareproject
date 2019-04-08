@@ -1,10 +1,11 @@
 <?php
-include 'DatabaseConnection.php';
+include '/php/DatabaseConnection.php';
 
 ?>
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="js/simulator.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <title>Data Simulator Form</title>
@@ -37,10 +38,10 @@ include 'DatabaseConnection.php';
                         <label for="customers">Customers:</label>
                         <select id="customers">
                             <?php 
-                                $selectCustomersSQL = "SELECT * FROM Customers";
+                                $selectCustomersSQL = "SELECT * FROM Customer";
                                 $customerSelectStatement = sqlsrv_query($connection,$selectCustomersSQL);
-                                while($row = sqlsrv_fetch($customerSelectStatement)){
-                                    echo "<option value=\"" . $row['CustomerID'] . "\">" . $row['Name'] . "</option>";
+                                while($row = sqlsrv_fetch_array($customerSelectStatement,SQLSRV_FETCH_ASSOC)){
+                                    echo '<option value="' . $row["CustomerID"] . '">' . $row["Name"] . '</option>', PHP_EOL;
                                 }
                             ?>
                         </select>

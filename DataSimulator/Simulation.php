@@ -1,5 +1,5 @@
 <?php
-include 'DatabaseConnection.php';
+include '/php/DatabaseConnection.php';
 $machineId = $_POST['machineID'];
 $motorId = $_POST['motorID'];
 $minimumValueVib = $_POST['minValueVib'];
@@ -13,27 +13,27 @@ $machineRuntimeSelectStatement = sqlsrv_query($connection,$selectMachineRuntime)
 $machineRuntime = $machineRuntimeSelectStatement;
 if($machineRuntimeSelectStatement === false ) {
         die( print_r( sqlsrv_errors(), true));
-    }
+}
 
 $selectMotorRuntime = "SELECT RunTime FROM Motor WHERE MotorID='$motorId'";
 $motorRuntimeSelectStatement = sqlsrv_query($connection,$selectMachineRuntime);
 $motorRuntime = $motorRuntimeSelectStatement;
 if($motorRuntimeSelectStatement === false ) {
         die( print_r( sqlsrv_errors(), true));
-    }
+}
 
 $sqlUpdateMachineOn = "UPDATE 'Machine' SET 'OnOff' = 1 WHERE MachineID='$machineId'";
 $machineOnUpdateStatement = sqlsrv_query($connection,$sqlUpdateMachineOn);
 if( $machineOnUpdateStatement === false ) {
         die( print_r( sqlsrv_errors(), true));
-    }
+}
 
 $selectMachineOn = "SELECT OnOff FROM Machine WHERE MachineID='$machineId'";
 $machineOnSelectStatement = sqlsrv_query($connection,$selectMachineOn);
 $machineOn = $machineOnSelectStatement;
 if( $machineOnSelectStatement === false ) {
         die( print_r( sqlsrv_errors(), true));
-    }
+}
 
 $counter = 0;
 while($machineOn === 1){

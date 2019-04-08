@@ -1,14 +1,23 @@
 ﻿$(document).ready(function () {
-    var customerId = $('#customers').change(function () {
-        return $('#customers').children("option:selected").val();
+    $("#customers").change(function () {
+        $("#address").prop('disabled', false);
+        var customerId = $("#customers").children("option:selected").val();
+        $("#address").load("address.php", {
+            customerId: customerId
+        });
     });
-    var addressId = $('#address').change(function () {
-        return $('#address').children("option:selected").val();
-    }); 
-    var machineId = $('#machine').change(function () {
-        return $('#machine').children("option:selected").val();
-    }); 
-    var motorId = $('#motor').change(function () {
-        return $('#motor').children("option:selected").val();
-    }); 
+    $("#address").change(function () {
+        $("#machine").prop('disabled', false);
+        var addressId = $("#address").children("option:selected").val();
+        $("#machine").load("machine.php", {
+            addressId: addressId
+        });
+    });
+    $("#machine").change(function () {
+        $("#motor").prop('disabled', false);
+        var machineId = $("#machine").children("option:selected").val();
+        $("#motor").load("motor.php", {
+            machineId: machineId
+        });
+    });
 });
