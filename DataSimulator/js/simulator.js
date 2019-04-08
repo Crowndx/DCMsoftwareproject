@@ -1,22 +1,23 @@
 ﻿$(document).ready(function () {
-    $("#customers").change(function () {
+    $("#customers").click(function () {
         $("#address").prop('disabled', false);
         var customerId = $("#customers").children("option:selected").val();
-        $("#address").load("address.php", {
+        console.log(customerId);
+        $("#address").load("php/address.php", {
             customerId: customerId
         });
-    });
-    $("#address").change(function () {
         $("#machine").prop('disabled', false);
+    });
+    $("#address").click(function () {
         var addressId = $("#address").children("option:selected").val();
-        $("#machine").load("machine.php", {
+        $("#machine").load("php/machine.php", {
             addressId: addressId
         });
-    });
-    $("#machine").change(function () {
         $("#motor").prop('disabled', false);
+    });
+    $("#machine").click(function () {
         var machineId = $("#machine").children("option:selected").val();
-        $("#motor").load("motor.php", {
+        $("#motor").load("php/motor.php", {
             machineId: machineId
         });
     });
