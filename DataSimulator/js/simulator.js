@@ -2,7 +2,6 @@
     $("#customers").click(function () {
         $("#address").prop('disabled', false);
         var customerId = $("#customers").children("option:selected").val();
-        console.log(customerId);
         $("#address").load("php/address.php", {
             customerId: customerId
         });

@@ -19,7 +19,7 @@ if($machineRuntimeSelectStatement === false ) {
 }
 
 $selectMotorRuntime = "SELECT RunTime FROM Motor WHERE MotorID=$motorId";
-$motorRuntimeSelectStatement = sqlsrv_query($connection,$selectMachineRuntime);
+$motorRuntimeSelectStatement = sqlsrv_query($connection,$selectMotorRuntime);
 $motorRuntime = 0;
 while($row = sqlsrv_fetch_array($motorRuntimeSelectStatement,SQLSRV_FETCH_ASSOC)){
     $motorRuntime = $row["RunTime"];
