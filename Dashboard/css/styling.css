@@ -1,104 +1,109 @@
 ﻿body {
-    font: 12px Goudy Old Style;
+    font: 20px Goudy Old Style;
 }
 
 button {
-	width: 75%
+    width: 75%
 }
+
 body {
-	background-color: #00598e;
+    background-color: #00598e;
 }
 
 .selected {
-	background-color: #175ac6;
+    background-color: #175ac6;
 }
 
 .dropdown-menu {
-	padding: 0px !important;
-	margin: 0px !important;
+    padding: 0px !important;
+    margin: 0px !important;
 }
 
 .row {
-	margin-left: 0px;
-	margin-right: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .btn-secondary {
-	background-color: #00598e;
+    background-color: #00598e;
 }
 
 .border {
-	padding: 0px;
-	background-color: #FFFFFF;
+    padding: 0px;
+    background-color: #FFFFFF;
 }
 
 .topLabel {
-	background-color: #4dbeff;
-	margin: 0px;
+    background-color: #4dbeff;
+    margin: 0px;
+    height: 105px;
+}
+
+.topLabelMotor {
+    background-color: #4dbeff;
+    margin: 0px;
+    height: 30px;
+    font: 20px Goudy Old Style;
 }
 
 .bottomLabel {
-	background-color: #FFFFFF;
-	text-align: center;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+#summaryInfo {
+    margin-left: 10%;
 }
 
 #machineInfo {
-	list-style: none;
-	padding: 0px;
+    list-style: none;
+    padding: 0px;
 }
 
 #sidebar {
-	text-align: center;
-	background-color: #4dbeff;
-	padding: 0px;
+    text-align: center;
+    background-color: #4dbeff;
+    padding: 0px;
 }
 
-#sidebar div {
-	margin-top: 7px;
-}
+    #sidebar div {
+        margin-top: 7px;
+    }
 
 #handlingImage {
-	width: 100%;
+    width: 100%;
     height: auto;
     max-width: 100%;
 }
 
 #summary {
-	margin-top: 7px;
+    margin-top: 7px;
 }
 
 #summaryInfo div h3 {
-	font-size: 2em;
-	padding-top: 7px;
+    font-size: 2em;
+    padding-top: 7px;
 }
 
 #motorsContainer {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 #motors p {
-	text-align: center;
+    text-align: center;
 }
 
 #motors h6, .topLabel {
-	text-align: center;
-	border-bottom: 1px solid black;
+    text-align: center;
+    border-bottom: 1px solid black;
 }
 
-#leftHalf {
-	float: left;
-	width: 50%;
+#motor1LeftHalf, #motor2LeftHalf {
+    float: left;
+    width: 50%;
 }
 
-#rightHalf {
-	float: right;
-	width: 50%;
-}
-
-#motor1Temperature {
-	width: 100%;
-}
-
-#motor1Vibration {
-	width: 100%;
+#motor1RightHalf, #motor2RightHalf {
+    float: right;
+    width: 50%;
 }

@@ -1,10 +1,5 @@
 <?php
 include 'php/DatabaseConnection.php';
-/*
-$sqlCommand = 'SELECT * FROM Handling';
-$query = $dbh->query($sqlCommand);
-$customerLocations = $query['customer'];
-*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,7 +53,7 @@ $customerLocations = $query['customer'];
                             <label for="machines">Machines:</label>
                             <select class="form-control" id="machine" name="machine">
                                 <?php 
-                                    $selectMachinesSQL = "SELECT * FROM Machine WHERE AddressID = 1 AND MachineID = 1";
+                                    $selectMachinesSQL = "SELECT * FROM Machine WHERE AddressID = 1";
                                     $machineSelectResults = sqlsrv_query($connection,$selectMachinesSQL);
                                     while($row = sqlsrv_fetch_array($machineSelectResults,SQLSRV_FETCH_ASSOC)){
                                         echo '<option value="' . $row["MachineID"] . '">' . $row["MachineFunction"] . '</option>', PHP_EOL;
@@ -88,14 +83,14 @@ $customerLocations = $query['customer'];
                                         echo "Last maintenance was: ". date("Y.m.d", strtotime($date));
                                     }
                          ?></li>
-                        <li class="list-group-item"><?php 
+                        <li class="list-group-item" id="sinceMaintenance"><?php 
                                     $selectMachineRuntimeSQL = "SELECT Runtime FROM Machine WHERE MachineID = 1";
                                     $machineRuntimeSelectResults = sqlsrv_query($connection,$selectMachineRuntimeSQL);
                                     while($row = sqlsrv_fetch_array($machineRuntimeSelectResults,SQLSRV_FETCH_ASSOC)){
                                         echo "Runtime: " . $row["Runtime"] . " seconds since last maintenance.";
                                     }
                          ?></li>
-						 <li class="list-group-item"><?php 
+						 <li class="list-group-item" id="untilMaintenance"><?php 
                                     $selectMachineRuntimeSQL = "SELECT Runtime FROM Machine WHERE MachineID = 1";
                                     $machineRuntimeSelectResults = sqlsrv_query($connection,$selectMachineRuntimeSQL);
                                     while($row = sqlsrv_fetch_array($machineRuntimeSelectResults,SQLSRV_FETCH_ASSOC)){
@@ -103,7 +98,7 @@ $customerLocations = $query['customer'];
                                         echo $timeTillMaintenance . " seconds till maintenance.";
                                     }
                          ?></li>
-						 <li class="list-group-item"><?php 
+						 <li class="list-group-item" id="faults"><?php 
                                     $selectMachineStatusSQL = "SELECT FaultID FROM Machine WHERE MachineID = 1";
                                     $machineOnSelectResults = sqlsrv_query($connection,$selectMachineStatusSQL);
                                     $faultId = 0;
@@ -176,8 +171,8 @@ $customerLocations = $query['customer'];
 					<div class="container" id="motorsContainer">
 						<div class="row" id="motors">
 							<div class="col-sm border">
-								<h6 class="topLabel">Motor 1</h6>
-								<p id="leftHalf"><?php 
+								<h6 class="topLabelMotor">Motor 1</h6>
+								<p id="motor1LeftHalf"><?php 
                                     $selectMotor1OnSQL = "SELECT OnOff FROM Motor WHERE MachineID = 1 AND MotorID = 1";
                                     $motor1OnSelectResults = sqlsrv_query($connection,$selectMotor1OnSQL);
                                     while($row = sqlsrv_fetch_array($motor1OnSelectResults,SQLSRV_FETCH_ASSOC)){
@@ -189,18 +184,18 @@ $customerLocations = $query['customer'];
                                         };
                                     }
                                 ?></p>
-								<p id="rightHalf"><?php 
+								<p id="motor1RightHalf"><?php 
                                     $selectMotor1RuntimeSQL = "SELECT Runtime FROM Motor WHERE MachineID = 1 AND MotorID = 1";
                                     $motor1RuntimeSelectResults = sqlsrv_query($connection,$selectMotor1RuntimeSQL);
                                     while($row = sqlsrv_fetch_array($motor1RuntimeSelectResults,SQLSRV_FETCH_ASSOC)){
                                         echo "Runtime: " . $row["Runtime"] . " seconds since last maintenance.";
                                     }
                                 ?></p>
-								<p><?php 
+								<p id = "motor1CurrTemp"><?php 
                                     $selectMotor1TemperatureSQL = "SELECT TOP 1 Temperature FROM Temperature WHERE MotorID = 1 ORDER BY TemperatureID DESC";
                                     $motor1TemperatureSelectResults = sqlsrv_query($connection,$selectMotor1TemperatureSQL);
                                     while($row = sqlsrv_fetch_array($motor1TemperatureSelectResults,SQLSRV_FETCH_ASSOC)){
-                                        echo $row["Temperature"] * 0.005 . "C";
+                                        echo $row["Temperature"] . "C";
                                     }
                                 ?></p>
                                 <p id="testing"></p>
@@ -208,8 +203,8 @@ $customerLocations = $query['customer'];
 								<canvas id="motor1Vibration" width="150px" height="150px"></canvas>
 							</div>
 							<div class="col-sm border">
-								<h6 class="topLabel">Motor 2</h6>
-								<p id="leftHalf"><?php 
+								<h6 class="topLabelMotor">Motor 2</h6>
+								<p id="motor2LeftHalf"><?php 
                                     $selectMotor2OnSQL = "SELECT OnOff FROM Motor WHERE MachineID = 1 AND MotorID = 2";
                                     $motor2OnSelectResults = sqlsrv_query($connection,$selectMotor2OnSQL);
                                     while($row = sqlsrv_fetch_array($motor2OnSelectResults,SQLSRV_FETCH_ASSOC)){
@@ -221,18 +216,18 @@ $customerLocations = $query['customer'];
                                         };
                                     }
                                 ?></p>
-								<p id="rightHalf"><?php 
+								<p id="motor2RightHalf"><?php 
                                     $selectMotor2RuntimeSQL = "SELECT Runtime FROM Motor WHERE MachineID = 1 AND MotorID = 2";
                                     $motor2RuntimeSelectResults = sqlsrv_query($connection,$selectMotor2RuntimeSQL);
                                     while($row = sqlsrv_fetch_array($motor2RuntimeSelectResults,SQLSRV_FETCH_ASSOC)){
                                         echo "Runtime: " . $row["Runtime"] . " seconds since last maintenance.";
                                     }
                                 ?></p>
-								<p><?php 
+								<p id = "motor2CurrTemp"><?php 
                                     $selectMotor2TemperatureSQL = "SELECT TOP 1 Temperature FROM Temperature WHERE MotorID = 2 ORDER BY TemperatureID DESC";
                                     $motor2TemperatureSelectResults = sqlsrv_query($connection,$selectMotor2TemperatureSQL);
                                     while($row = sqlsrv_fetch_array($motor2TemperatureSelectResults,SQLSRV_FETCH_ASSOC)){
-                                        echo $row["Temperature"] * 0.005 . "C";
+                                        echo $row["Temperature"] . "C";
                                     }
                                 ?></p>
                                 <canvas id="motor2Temperature" width="150px" height="100px"></canvas>
