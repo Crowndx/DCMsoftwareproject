@@ -1,0 +1,18 @@
+/****** Object:  Table [dbo].[Faults]    Script Date: 4/22/2019 5:39:17 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Faults](
+	[FaultID] [int] NOT NULL,
+	[FaultDescription] [varchar](max) NOT NULL,
+ CONSTRAINT [PK_Faults] PRIMARY KEY CLUSTERED 
+(
+	[FaultID] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
