@@ -1,4 +1,8 @@
 <?php
+/*
+ * Connects to the database provided by the DatabaseConnection php script
+ * Retrieves the post request parameters and stores them in the variables
+ */
 include 'php/DatabaseConnection.php';
 $machineId = $_POST['machine'];
 $motorId = $_POST['motor'];
@@ -8,6 +12,13 @@ $minimumValueTemp = $_POST['minValueTemp'];
 $maxValueTemp = $_POST['maxValueTemp'];
 $cycles = $_POST['cycles'];
 
+/*
+ * This block of code is responsible for retrieving the current runtime of the machine based on the machine id passed in from the index form
+ * Creates a SQL query to get the runtime
+ * Runs the sql query on the database
+ * Creates a variable to hold the result $machineRuntime
+ * Sets $machineRuntime equal to the result retrieved from the database($row)
+ */
 $selectMachineRuntime = "SELECT RunTime FROM Machine WHERE MachineID=$machineId";
 $machineRuntimeSelectStatement = sqlsrv_query($connection,$selectMachineRuntime);
 $machineRuntime = 0;
@@ -18,6 +29,13 @@ if($machineRuntimeSelectStatement === false ) {
         die( print_r( sqlsrv_errors(), true));
 }
 
+/*
+ * This block of code is responsible for retrieving the current runtime of the motor based on the motor id passed in from the index form
+ * Creates a SQL query to get the runtime
+ * Runs the sql query on the database
+ * Creates a variable to hold the result $motorRuntime
+ * Sets $motorRuntime equal to the result retrieved from the database($row)
+ */
 $selectMotorRuntime = "SELECT RunTime FROM Motor WHERE MotorID=$motorId";
 $motorRuntimeSelectStatement = sqlsrv_query($connection,$selectMotorRuntime);
 $motorRuntime = 0;

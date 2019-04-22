@@ -10,6 +10,7 @@ $(document).ready(function () {
         counter += 1;
     }
 
+    //This block of code is responsible for initializing the temperature graph of motor 1
     var ctx = document.getElementById("motor1Temperature").getContext('2d');
     chartMotor1Temperature = new Chart(ctx, {
         type: 'line',
@@ -64,6 +65,7 @@ $(document).ready(function () {
         }
     });
 
+    //This block of code is responsible for initializing the vibration graph of motor 1
     var ctx = document.getElementById("motor1Vibration").getContext('2d');
     chartMotor1Vibration = new Chart(ctx, {
         type: 'line',
@@ -118,6 +120,7 @@ $(document).ready(function () {
         }
     });
 
+    //This block of code is responsible for initializing the temperature graph of motor 2
     var ctx_live_temp = document.getElementById("motor2Temperature").getContext('2d');
     chartMotor2Temperature = new Chart(ctx_live_temp, {
         type: 'line',
@@ -172,6 +175,7 @@ $(document).ready(function () {
         }
     });
 
+    //This block of code is responsible for initializing the vibration graph of motor 2
     var ctx_live_vib = document.getElementById("motor2Vibration").getContext('2d');
     chartMotor2Vibration = new Chart(ctx_live_vib, {
         type: 'line',

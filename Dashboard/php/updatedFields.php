@@ -1,6 +1,10 @@
 <?php
 include 'DatabaseConnection.php';
-
+/*
+ * This php script checks to see if the machine is on or off in the database
+ * will return to the calling ajax function updateMachinesOnOff
+ * Either the machine is on or the machine if off to display on the dashboard    
+ */
 if(isset($_POST["machineOnOff"])){
     $selectMachineOnSQL = "SELECT OnOff FROM Machine WHERE MachineID = 1";
     $machineOnSelectResults = sqlsrv_query($connection,$selectMachineOnSQL);
@@ -16,6 +20,11 @@ if(isset($_POST["machineOnOff"])){
     echo json_encode($result);
 }
 
+/*
+ * This php script checks to see if motor 1 is on or off in the database
+ * will return to the calling ajax function updateMotor1OnOff
+ * Either the motor is on or the motor if off to display on the dashboard    
+ */
 else if(isset($_POST["machineOneOn"])){
     $selectMotor1OnSQL = "SELECT OnOff FROM Motor WHERE MachineID = 1 AND MotorID = 1";
     $motor1OnSelectResults = sqlsrv_query($connection,$selectMotor1OnSQL);
@@ -32,6 +41,11 @@ else if(isset($_POST["machineOneOn"])){
     echo json_encode($result);
 }
 
+/*
+ * This php script checks to see if motor 2 is on or off in the database
+ * will return to the calling ajax function updateMotor1OnOff
+ * Either the motor is on or the motor if off to display on the dashboard    
+ */
 else if(isset($_POST["machineTwoOn"])){
     $selectMotor2OnSQL = "SELECT OnOff FROM Motor WHERE MachineID = 1 AND MotorID = 2";
     $motor2OnSelectResults = sqlsrv_query($connection,$selectMotor2OnSQL);
@@ -47,7 +61,11 @@ else if(isset($_POST["machineTwoOn"])){
     
     echo json_encode($result);
 }
-
+/*
+ * This php script checks to see what the fault id the machine has 
+ * will return to the calling ajax function updateFaults
+ * Will display the fault description to the dashboard 
+ */
 else if(isset($_POST["machineFaults"])){
     $selectMachineStatusSQL = "SELECT FaultID FROM Machine WHERE MachineID = 1";
     $machineOnSelectResults = sqlsrv_query($connection,$selectMachineStatusSQL);
@@ -65,6 +83,11 @@ else if(isset($_POST["machineFaults"])){
     echo json_encode($result);
 }
 
+/*
+ * This php script checks to see what the runtime of motor 1 is 
+ * will return to the calling ajax function updateMotor1Maintenance
+ * Will display the motor 1's runtime to the dashboard once the function is complete
+ */
 else if(isset($_POST["motorOneMaintenance"])){
     $selectMotor1RuntimeSQL = "SELECT Runtime FROM Motor WHERE MachineID = 1 AND MotorID = 1";
     $motor1RuntimeSelectResults = sqlsrv_query($connection,$selectMotor1RuntimeSQL);
@@ -75,6 +98,11 @@ else if(isset($_POST["motorOneMaintenance"])){
     echo json_encode($result);
 }
 
+/*
+ * This php script checks to see what the runtime of motor 2 is 
+ * will return to the calling ajax function updateMotor1Maintenance
+ * Will display the motor 2's runtime to the dashboard once the function is complete
+ */
 else if(isset($_POST["motorTwoMaintenance"])){
     $selectMotor2RuntimeSQL = "SELECT Runtime FROM Motor WHERE MachineID = 1 AND MotorID = 2";
     $motor2RuntimeSelectResults = sqlsrv_query($connection,$selectMotor2RuntimeSQL);
@@ -85,6 +113,11 @@ else if(isset($_POST["motorTwoMaintenance"])){
     echo json_encode($result);
 }
 
+/*
+ * This php script checks to see how long till the machine needs maintenance
+ * will return to the calling ajax function updateMachineUntilMaintenance
+ * Will display how many seconds the machine can run until it needs maintenance
+ */
 else if(isset($_POST["machineUntilMaintenance"])){
     $selectMachineRuntimeSQL = "SELECT Runtime FROM Machine WHERE MachineID = 1";
     $machineRuntimeSelectResults = sqlsrv_query($connection,$selectMachineRuntimeSQL);
@@ -96,6 +129,11 @@ else if(isset($_POST["machineUntilMaintenance"])){
     echo json_encode($result);
 }
 
+/*
+ * This php script checks to see how long the machine has been running since maintenance
+ * will return to the calling ajax function updateMachineSinceMaintenance
+ * Will display how many seconds the machine has run since maintenance
+ */
 else if(isset($_POST["machineSinceMaintenance"])){
     $selectMachineRuntimeSQL = "SELECT Runtime FROM Machine WHERE MachineID = 1";
     $machineRuntimeSelectResults = sqlsrv_query($connection,$selectMachineRuntimeSQL);

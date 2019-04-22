@@ -1,6 +1,5 @@
 <?php
 include 'php/DatabaseConnection.php';
-
 ?>
 <!DOCTYPE html>
 <head>
@@ -40,7 +39,8 @@ include 'php/DatabaseConnection.php';
                         <h1>Selections</h1>                        
                         <label for="customers">Customers:</label>
                         <select id="customers" name="customers">
-                            <?php 
+                            <?php
+                                //Gets all of the customers from the database and displays them in the customer drop down menu 
                                 $selectCustomersSQL = "SELECT * FROM Customer";
                                 $customerSelectStatement = sqlsrv_query($connection,$selectCustomersSQL);
                                 while($row = sqlsrv_fetch_array($customerSelectStatement,SQLSRV_FETCH_ASSOC)){
