@@ -25,9 +25,6 @@ $machineRuntime = 0;
 while($row = sqlsrv_fetch_array($machineRuntimeSelectStatement,SQLSRV_FETCH_ASSOC)){
     $machineRuntime = $row["RunTime"];
 }
-if($machineRuntimeSelectStatement === false ) {
-        die( print_r( sqlsrv_errors(), true));
-}
 
 /*
  * This block of code is responsible for retrieving the current runtime of the motor based on the motor id passed in from the index form
@@ -42,87 +39,71 @@ $motorRuntime = 0;
 while($row = sqlsrv_fetch_array($motorRuntimeSelectStatement,SQLSRV_FETCH_ASSOC)){
     $motorRuntime = $row["RunTime"];
 }
-if($motorRuntimeSelectStatement === false ) {
-        echo "2";
-        die( print_r( sqlsrv_errors(), true));
-}
 
+/*
+ * This block is responsible for updating the machines on or off status to ON based on the machineId passed in from the form
+ */
 $sqlUpdateMachineOn = "UPDATE Machine SET OnOff = 1 WHERE MachineID=$machineId";
 $machineOnUpdateStatement = sqlsrv_query($connection,$sqlUpdateMachineOn);
-if( $machineOnUpdateStatement === false ) {
-        die( print_r( sqlsrv_errors(), true));
-}
 
+/*
+ * This block is responsible for updating a motor's on or off status to ON based on the motorId passed in from the form
+ */
 $sqlUpdateMotorOn = "UPDATE Motor SET OnOff = 1 WHERE MotorID=$motorId";
 $machineOnUpdateStatement = sqlsrv_query($connection,$sqlUpdateMotorOn);
-if( $machineOnUpdateStatement === false ) {
-        die( print_r( sqlsrv_errors(), true));
-}
 
+/*
+ * This block of code is responsible for retrieving the current On or Off status of the machine based on the machine id passed in from the index form
+ * Creates a SQL query to get the On or Off status
+ * Runs the sql query on the database
+ * Creates a variable to hold the result $machineOn
+ * Sets $machineOn equal to the result retrieved from the database($row)
+ */
 $selectMachineOn = "SELECT OnOff FROM Machine WHERE MachineID=$machineId";
 $machineOnSelectStatement = sqlsrv_query($connection,$selectMachineOn);
 $machineOn = 0;
 while($row = sqlsrv_fetch_array($machineOnSelectStatement,SQLSRV_FETCH_ASSOC)){
     $machineOn = $row["OnOff"];
 }
-if( $machineOnSelectStatement === false ) {
-        echo "4";
-        die( print_r( sqlsrv_errors(), true));
-}
-
-$counter = 0;
-while($machineOn === 1){ 
+    
+$counter = 0;                                                 // This counter is just used to tell how many times the loop has run
+while($machineOn === 1){                                      // Runs while the machine is "On"
     $counter = $counter + 1;  
-    usleep(250000);
-    $date = date("Y/m/d h:i:s");
-    $vibration = rand($minimumValueVib,$maxValueVib);
+    usleep(250000);                                           // Makes the program wait .25 seconds to run
+    $date = date("Y/m/d h:i:s");                              // Gets the current date and time
+    $vibration = rand($minimumValueVib,$maxValueVib);         // Creates a random vibration value based on the provided minimum and maximum vibration values
     $sqlInsertVibration = "INSERT INTO Vibration(Vibration,DateTime,MotorID) VALUES(?,?,?)";
-    $params = array($vibration,$date,$motorId);
+    $params = array($vibration,$date,$motorId);               // Prepared statement to hold the variables instead of having them in the SQL statement
     $insertStatementVibration = sqlsrv_query($connection,$sqlInsertVibration,$params);
-    if( $insertStatementVibration === false ) {
-        echo "5";
-        die( print_r( sqlsrv_errors(), true));
-    }
 
-    if($counter % 4 === 0){        
-        $machineRuntime = $machineRuntime + 1;
-        $motorRuntime = $motorRuntime + 1;
-        $temperature = rand($minimumValueTemp, $maxValueTemp);
+    if($counter % 4 === 0){                                   // Makes sure that every 4 vibration value creations we will create a temperature value      
+        $machineRuntime = $machineRuntime + 1;                // Increment the machines runtime by 1
+        $motorRuntime = $motorRuntime + 1;                    // Increment the motors runtime by 1
+        $temperature = rand($minimumValueTemp, $maxValueTemp);// Creates a random temperature value based on the provided minimum and maximum temperature values
+        
+        // Inserts a new temperature into the Temperature table with the created temperature the current date and which motorId it's for
         $sqlInsertTemperature = "INSERT INTO Temperature(Temperature,DateTime,MotorID) VALUES(?,?,?)";
-        $params = array($temperature,$date,$motorId);
+        $params = array($temperature,$date,$motorId);         // Prepared statement to hold the variables instead of having them in the SQL statement
         $insertStatementTemperature = sqlsrv_query($connection,$sqlInsertTemperature,$params);
-        if( $insertStatementTemperature === false ) {
-            echo "6";
-            die( print_r( sqlsrv_errors(), true));
-        }
+
+        // Updates the currently running machine's runtime 
         $sqlUpdateMachineRuntime = "UPDATE Machine SET Runtime = $machineRuntime WHERE MachineID=$machineId";
         $machineOnUpdateStatement = sqlsrv_query($connection,$sqlUpdateMachineRuntime);
-        if($machineOnUpdateStatement === false ) {
-            echo "7";
-            die( print_r( sqlsrv_errors(), true));
-        }
+
+        // Updates the currently running motor's runtime
         $sqlUpdateMotorRuntime = "UPDATE Motor SET Runtime = $motorRuntime WHERE MotorID=$motorId";
         $motorOnUpdateStatement = sqlsrv_query($connection,$sqlUpdateMotorRuntime);
-        if($machineOnUpdateStatement === false ) {
-            echo "7";
-            die( print_r( sqlsrv_errors(), true));
-        }
     }
+    if($counter > $cycles * 4){                             // Makes the loop stop once the counter is larger than cycles * 4                  
+        $machineOn = 0;                                     // Sets the machine to "OFF" to stop the loop
 
-    if($counter > $cycles * 4){
-        $machineOn = 0;
+        // Updates the current machines On or Off status to off
         $sqlUpdateMachineOn = "UPDATE Machine SET OnOff = 0 WHERE MachineID=$machineId";
         $machineOnUpdateStatement = sqlsrv_query($connection,$sqlUpdateMachineOn);
-        if($machineOnUpdateStatement === false ) {
-            echo "<br>8";
-            die( print_r( sqlsrv_errors(), true));
-        }
+
+        // Updates the current motors On or Off status to off
         $sqlUpdateMotorOn = "UPDATE Motor SET OnOff = 0 WHERE MotorID=$motorId";
-        $motorOnUpdateStatement = sqlsrv_query($connection,$sqlUpdateMotorOn);
-        if($machineOnUpdateStatement === false ) {
-            echo "<br>8";
-            die( print_r( sqlsrv_errors(), true));
-        }          
+        $motorOnUpdateStatement = sqlsrv_query($connection,$sqlUpdateMotorOn);       
     }
 }
 ?>
