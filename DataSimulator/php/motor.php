@@ -1,4 +1,5 @@
 <?php
+// Loads the DatabaseConnection.php file that will connect the webpage to the database
 include 'DatabaseConnection.php';
 if(isset($_POST['machineId'])){
     $machineId = $_POST['machineId'];
